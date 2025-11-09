@@ -1,0 +1,49 @@
+<%- include('../layout') %>
+
+<div class="container mt-4">
+  <h2>Registrar Paciente</h2>
+  <form id="formPaciente" action="/pacientes/nuevo" method="POST">
+     <div class="mb-3">
+      <label class="form-label">Nombre:</label>
+      <input type="text" name="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Tipo:</label>
+      <select name="tipo" class="form-select" required>
+        <option value="CC">Cédula</option>
+        <option value="TI">Tarjeta Identidad</option>
+        <option value="RC">Registro Civil</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Documento:</label>
+      <input type="text" name="documento" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Fecha Nacimiento:</label>
+      <input type="date" name="fecha_nacimiento" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Dirección:</label>
+      <input type="text" name="direccion" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="/pacientes" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('formPaciente');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(form));
+    const res = await fetch('/pacientes/nuevo', { method: 'POST', body: data });
+    if (res.ok) {
+      showSuccess('Paciente registrado correctamente', '/pacientes');
+    } else {
+      showError('Hubo un problema al guardar el paciente');
+    }
+  });
+</script>
+
+<%- include('../footer') %>

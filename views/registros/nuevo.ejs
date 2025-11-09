@@ -1,0 +1,78 @@
+<%- include('../layout') %>
+
+<div class="container mt-4">
+  <h2><%= titulo %></h2>
+  <form id="formRegistro">
+    <div class="mb-3">
+      <label>Paciente:</label>
+      <select name="id_paciente" class="form-select" required>
+        <option value="">Seleccione...</option>
+        <% pacientes.forEach(p => { %>
+          <option value="<%= p.id_paciente %>"><%= p.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Vacuna:</label>
+      <select name="id_vacuna" class="form-select" required>
+        <option value="">Seleccione...</option>
+        <% vacunas.forEach(v => { %>
+          <option value="<%= v.id_vacuna %>"><%= v.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Lote:</label>
+      <select name="id_lote" class="form-select" required>
+        <option value="">Seleccione...</option>
+        <% lotes.forEach(l => { %>
+          <option value="<%= l.id_lote %>"><%= l.codigo_lote %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Usuario (Aplicó):</label>
+      <select name="id_usuario" class="form-select" required>
+        <option value="">Seleccione...</option>
+        <% usuarios.forEach(u => { %>
+          <option value="<%= u.id_usuario %>"><%= u.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Fecha de vacunación:</label>
+      <input type="date" name="fecha_vacunacion" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Observaciones:</label>
+      <textarea name="observaciones" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="/registros" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+
+<script>
+  document.getElementById('formRegistro').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(e.target));
+    const res = await fetch('/registros/nuevo', { method: 'POST', body: data });
+    const result = await res.json();
+
+    if (res.ok && result.ok) {
+      showSuccess('Registro guardado correctamente', '/registros');
+    } else if (result.msg) {
+      showError(result.msg);
+    } else {
+      showError('Error al guardar el registro');
+    }
+  });
+</script>
+
+<%- include('../footer') %>

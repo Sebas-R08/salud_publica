@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= titulo %></title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body class="bg-light">
-    <nav class="navbar navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand" href="/">💉 Salud Pública</a>
-      </div>
-    </nav>
+<%- include('layout') %>
 
-    <div class="container mt-4">
-      <h1 class="text-center mb-4"><%= titulo %></h1>
-      <p class="lead text-center">Bienvenido al sistema de vacunación.</p>
-      <div class="text-center">
-        <a href="/acerca" class="btn btn-outline-primary">Ir a Acerca</a>
-      </div>
-    </div>
+<div class="container mt-4">
+  <h1 class="text-center"><%= titulo %></h1>
+  <p class="lead text-center">Bienvenido al sistema Salud Pública.</p>
+  <div class="text-center">
+    <a href="/pacientes" class="btn btn-primary">Ir a pacientes</a>
+    <a href="/vacunas" class="btn btn-primary">Ir a vacunas</a>
+    <a href="/registros" class="btn btn-primary">Ir a registros</a>
+    <a href="/lotes" class="btn btn-primary">Ir a lotes</a>
+  </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
-v
+<%- include('footer') %>

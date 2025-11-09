@@ -1,0 +1,36 @@
+<%- include('../layout') %>
+
+<div class="container mt-4">
+  <h2><%= titulo %></h2>
+  <form id="formEditar">
+    <div class="mb-3">
+      <label class="form-label">Nombre:</label>
+      <input type="text" name="nombre" class="form-control" value="<%= vacuna.nombre %>">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Laboratorio:</label>
+      <input type="text" name="laboratorio" class="form-control" value="<%= vacuna.laboratorio %>">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Dosis requeridas:</label>
+      <input type="number" name="dosis_requeridas" class="form-control" value="<%= vacuna.dosis %>">
+    </div>
+    <button type="submit" class="btn btn-warning">Actualizar</button>
+    <a href="/vacunas" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+
+<script>
+  document.getElementById('formEditar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(e.target));
+    const res = await fetch('/vacunas/editar/<%= vacuna.id_vacuna %>', { method: 'POST', body: data });
+    if (res.ok) {
+      showSuccess('Vacuna actualizada correctamente', '/vacunas');
+    } else {
+      showError('Error al actualizar la vacuna');
+    }
+  });
+</script>
+
+<%- include('../footer') %>

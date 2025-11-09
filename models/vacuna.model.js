@@ -1,18 +1,27 @@
+
 const { DataTypes } = require('sequelize');
 const sequelize = require('./db');
 
 const Vacuna = sequelize.define('Vacuna', {
   id_vacuna: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
+    primaryKey: true
   },
-  nombre_vacuna: {
+  nombre: { 
     type: DataTypes.STRING(100),
-    allowNull: false
+    allowNull: false,
+    field: 'nombre_vacuna'
   },
-  tipo_vacuna: DataTypes.STRING(50),
-  dosis: DataTypes.INTEGER
+  laboratorio: { 
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    field: 'laboratorio'
+  },
+  dosis: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  }
 }, {
   tableName: 'vacunas',
   timestamps: false

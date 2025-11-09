@@ -1,0 +1,54 @@
+<%- include('../layout') %>
+
+<div class="container mt-4">
+  <h2><%= titulo %></h2>
+  <form id="formLote">
+    <div class="mb-3">
+      <label>Código del lote:</label>
+      <input type="text" name="codigo_lote" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Vacuna asociada:</label>
+      <select name="id_vacuna" class="form-select" required>
+        <option value="">Seleccione...</option>
+        <% vacunas.forEach(v => { %>
+          <option value="<%= v.id_vacuna %>"><%= v.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Cantidad disponible:</label>
+      <input type="number" name="cantidad_disponible" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Fecha de recepción:</label>
+      <input type="date" name="fecha_recepcion" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Proveedor:</label>
+      <input type="text" name="proveedor" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="/lotes" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+
+<script>
+  document.getElementById('formLote').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(e.target));
+    const res = await fetch('/lotes/nuevo', { method: 'POST', body: data });
+    if (res.ok) {
+      showSuccess('Lote registrado correctamente', '/lotes');
+    } else {
+      showError('Error al registrar el lote');
+    }
+  });
+</script>
+
+<%- include('../footer') %>
