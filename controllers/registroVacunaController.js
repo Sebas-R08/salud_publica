@@ -43,8 +43,6 @@ exports.formularioNuevo = async (req, res) => {
 exports.crear = async (req, res) => {
   try {
     const { id_paciente, id_vacuna, id_lote, id_usuario, fecha_vacunacion, observaciones } = req.body;
-
-    // Validar duplicados: mismo paciente, vacuna y fecha
     const existente = await RegistroVacunacion.findOne({
       where: { id_paciente, id_vacuna, fecha_vacunacion }
     });
@@ -68,7 +66,7 @@ exports.crear = async (req, res) => {
   }
 };
 
-// Eliminar registro
+
 exports.eliminar = async (req, res) => {
   try {
     await RegistroVacunacion.destroy({ where: { id_registro: req.params.id } });
